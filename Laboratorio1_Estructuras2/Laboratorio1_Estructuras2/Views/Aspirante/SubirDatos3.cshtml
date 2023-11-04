@@ -1,0 +1,77 @@
+﻿@model List<Laboratorio1_Estructuras2.Models.Aspirante>
+
+@{
+    ViewBag.Title = "Aspirantes";
+}
+<h2>Lista de Aspirantes</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="archivo">Subir archivo CSV:</label>
+        <input type="file" name="archivo" id="archivo" class="form-control-file">
+    </div>
+    <div class="form-group">
+        <label for="ruta">Ruta de carpeta:</label>
+        <input type="text" name="ruta" id="ruta" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Subir archivo</button>
+</form>
+<br />
+<div>
+    <h4>Buscar:</h4>
+    <center>
+        <form method="post" action="@Url.Action("descom", "Aspirante")">
+            <input type="text" id="Dpi" name="Dpi" placeholder="Dpi" />
+            <input type="hidden" id="hiddenDpi" name="Dpi" value="" />
+            <br />
+            <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">Buscar por Dpi</button>
+        </form>
+    </center>
+</div>
+<br />
+
+<h4>Aspirantes:</h4>
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>nombre</th>
+                <th>Datos confidenciales</th>
+                <th>fecha de nacimiento</th>
+                <th>dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dato in Model)
+            {
+                <tr>
+                    <td>@dato.nombre</td>
+                    <td>
+                        <pre style="white-space: pre-line;">@string.Join("\n\n", dato.carta)</pre>
+                    </td>
+                    <td>@dato.nacimiento</td>
+                    <td>@dato.direccion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<br />
+<center>
+<form method="post" action="@Url.Action("index", "Aspirante")">
+    <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">volver</button>
+    </form>
+</center>
+<script>
+    $(document).ready(function () {
+        $('#llamarMetodoBtn').click(function () {
+            $('#hiddenDpi').val($('#Dpi').val());
+        });
+    });
+</script>

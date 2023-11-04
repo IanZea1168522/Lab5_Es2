@@ -1,0 +1,41 @@
+﻿@model List<Laboratorio1_Estructuras2.Models.Aspirante>
+
+@{
+    ViewBag.Title = "Aspirantes";
+}
+<h2>Aspirantes encontrados</h2>
+<br />
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>nombre</th>
+                <th>dpi</th>
+                <th>Conversaciones</th>
+                <th>fecha de nacimiento</th>
+                <th>dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dato in Model)
+            {
+                <tr>
+                    <td>@dato.nombre</td>
+                    <td>@dato.infoPriv[0]</td> 
+                    <td>
+                        <pre style="white-space: pre-line;">@string.Join("\n\n", dato.Convs)</pre>
+                    </td>
+                    <td>@dato.nacimiento</td>
+                    <td>@dato.direccion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<br />
+<center>
+    <form method="post" action="@Url.Action("SubirDatos4", "Aspirante")">
+        <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">Volver</button>
+    </form>
+</center>

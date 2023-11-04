@@ -1,0 +1,11 @@
+﻿﻿@{
+    ViewBag.Title = "Error";
+}
+<h2>Error</h2>
+<p>Archivo subido erróneo, verifique el archivo subido y vuelva a intentar (recuerde que es un CSV con Json en el)</p>
+<br />
+<center>
+    <form method="post" action="@Url.Action("SubirDatos4", "Aspirante")">
+        <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">Volver</button>
+    </form>
+</center>

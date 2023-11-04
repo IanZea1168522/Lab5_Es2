@@ -1,0 +1,71 @@
+﻿@model List<Laboratorio1_Estructuras2.Models.Aspirante>
+
+@{
+    ViewBag.Title = "Aspirantes";
+}
+<h2>Lista de Aspirantes</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="archivo">Subir archivo CSV:</label>
+        <input type="file" name="archivo" id="archivo" class="form-control-file">
+    </div>
+    <button type="submit" class="btn btn-primary">Subir archivo</button>
+</form>
+<br />
+
+<div>
+    <h4>Buscar:</h4>
+    <center>
+        <form method="post" action="@Url.Action("encontrado", "Aspirante")">
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre" />
+            <input type="hidden" id="hiddennombre" name="nombre" value="" />
+            <br />
+            <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">Buscar por nombre</button>
+        </form>
+    </center>
+</div>
+<br />
+<h4>Aspirantes:</h4>
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>nombre</th>
+                <th>dpi</th>
+                <th>fecha de nacimiento</th>
+                <th>dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dato in Model)
+            {
+                <tr>
+                    <td>@dato.nombre</td>
+                    <td>@dato.infoPriv[0]</td>
+                    <td>@dato.nacimiento</td>
+                    <td>@dato.direccion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<br />
+<center>
+<form method="post" action="@Url.Action("index", "Aspirante")">
+    <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">volver</button>
+    </form>
+</center>
+<script>
+    $(document).ready(function () {
+        $('#llamarMetodoBtn').click(function () {
+            $('#hiddennombre').val($('#nombre').val());
+        });
+    });
+</script>
