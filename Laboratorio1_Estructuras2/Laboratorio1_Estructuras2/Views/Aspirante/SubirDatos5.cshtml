@@ -1,0 +1,106 @@
+﻿@model List<Laboratorio1_Estructuras2.Models.Aspirante>
+
+@{
+    ViewBag.Title = "Aspirantes";
+}
+<h2>Lista de Aspirantes</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="archivo">Subir archivo CSV:</label>
+        <input type="file" name="archivo" id="archivo" class="form-control-file">
+    </div>
+    <div class="form-group">
+        <label for="ruta">Ruta de carpeta:</label>
+        <input type="text" name="ruta" id="ruta" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Subir archivo</button>
+</form>
+<br />
+<div>
+    <h4>Generar contraseña:</h4>
+    <center>
+        <form method="post" action="@Url.Action("generar", "Aspirante")">
+            <input type="text" id="Dpi" name="Dpi" placeholder="Dpi" />
+            <input type="hidden" id="hiddenDpi" name="Dpi" value="" />
+            <input type="text" id="reclu" name="reclu" placeholder="Reclutador" />
+            <input type="hidden" id="hiddenreclu" name="reclu" value="" />
+            <br />
+            <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">Generar Clave</button>
+        </form>
+    </center>
+</div>
+<br />
+<div>
+    <h4>Encontrar datos:</h4>
+    <center>
+        <form method="post" action="@Url.Action("buscarCla", "Aspirante")">
+            <input type="text" id="Dpi1" name="Dpi1" placeholder="Dpi" />
+            <input type="hidden" id="hiddenDpi1" name="Dpi1" value="" />
+            <input type="text" id="reclu1" name="reclu1" placeholder="Reclutador" />
+            <input type="hidden" id="hiddenreclu1" name="reclu1" value="" />
+            <input type="text" id="clave1" name="clave1" placeholder="Identificador" />
+            <input type="hidden" id="hiddenclave1" name="clave1" value="" />
+            <input type="text" id="ident" name="ident" placeholder="Contraseña" />
+            <input type="hidden" id="hiddenident" name="ident" value="" />
+            <br />
+            <button type="submit" id="Btn" name="Btn" class="botonplano">Generar Clave</button>
+        </form>
+    </center>
+</div>
+<br />
+
+<h4>Aspirantes:</h4>
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>nombre</th>
+                <th>reclutadores</th>
+                <th>fecha de nacimiento</th>
+                <th>dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dato in Model)
+            {
+                <tr>
+                    <td>@dato.nombre</td>
+                    <td>@dato.reclutadores</td>
+                    <td>@dato.nacimiento</td>
+                    <td>@dato.direccion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<br />
+<center>
+<form method="post" action="@Url.Action("index", "Aspirante")">
+    <button type="submit" id="llamarMetodoBtn" name="llamarMetodoBtn" class="botonplano">volver</button>
+    </form>
+</center>
+<script>
+    $(document).ready(function () {
+        $('#llamarMetodoBtn').click(function () {
+            $('#hiddenDpi').val($('#Dpi').val());
+            $('#hiddenreclu').val($('#reclu').val());
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#Btn').click(function () {
+            $('#hiddenDpi1').val($('#Dpi1').val());
+            $('#hiddenreclu1').val($('#reclu1').val());
+            $('#hiddenclave1').val($('#clave1').val());
+            $('#hiddenident').val($('#ident').val());
+        });
+    });
+</script>

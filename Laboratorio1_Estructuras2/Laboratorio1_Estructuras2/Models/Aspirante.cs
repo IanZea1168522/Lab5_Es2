@@ -9,6 +9,8 @@
         public List<string> carta { get; set; } 
         public List<Dictionary<string, int>> diccionario { get; set; }
         public List<String> Convs { get; set; }
+        public string reclutadores { get; set; }
+        public string encriptado { get; set; }
         public int CompareTo(Aspirante other)
         {
             int result = this.infoPriv[0].CompareTo(other.infoPriv[0]);
